@@ -30,6 +30,20 @@ export default function Dropdown({ children }: Props) {
     };
   }, []);
 
+  useEffect(() => {
+    const handleESCKeydown = (e: KeyboardEvent) => {
+      if (!isOpen) return;
+      if (e.key === "Escape") {
+        close();
+      }
+    };
+
+    document.addEventListener("keydown", handleESCKeydown);
+    return () => {
+      document.removeEventListener("keydown", handleESCKeydown);
+    };
+  }, [isOpen]);
+
   return (
     <DropdownContext.Provider value={{ isOpen, toggle, close }}>
       <div className="relative inline-block" ref={dropdownRef}>

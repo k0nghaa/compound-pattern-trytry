@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { DropdownContext } from "../../../provider/DropdownProvider";
 
 type Props = {
@@ -7,6 +7,7 @@ type Props = {
 
 export default function Dropdown({ children }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
   const toggle = () => {
     setIsOpen((prev) => !prev);
   };
@@ -14,9 +15,26 @@ export default function Dropdown({ children }: Props) {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        close();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <DropdownContext.Provider value={{ isOpen, toggle, close }}>
-      {children}
+      <div className="relative inline-block" ref={dropdownRef}>
+        {children}
+      </div>
     </DropdownContext.Provider>
   );
 }

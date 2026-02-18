@@ -28,6 +28,8 @@ export default function DropdownItem({
   return (
     <li
       onClick={onClick}
+      role="menuitem"
+      aria-disabled={disabled}
       className={
         disabled
           ? `cursor-not-allowed opacity-50 ${className}`

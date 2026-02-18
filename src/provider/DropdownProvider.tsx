@@ -4,6 +4,7 @@ type DropdownContextValue = {
   isOpen: boolean;
   toggle: () => void;
   close: () => void;
+  dropdownId: string;
 };
 
 export const DropdownContext = createContext<DropdownContextValue | null>(null);

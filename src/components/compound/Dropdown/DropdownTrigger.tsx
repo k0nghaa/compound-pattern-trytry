@@ -6,10 +6,11 @@ type DropdownTriggerProps = {
 };
 
 export default function DropdownTrigger({ children }: DropdownTriggerProps) {
-  const { toggle, isOpen, dropdownId } = useDropdownContext();
+  const { toggle, isOpen, dropdownId, triggerRef } = useDropdownContext();
 
   return (
     <button
+      ref={triggerRef}
       onClick={toggle}
       aria-expanded={isOpen}
       aria-haspopup="menu"

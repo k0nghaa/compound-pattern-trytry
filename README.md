@@ -5,16 +5,16 @@
 > Compound Component Pattern을 중심으로
 > 컴포넌트 특성에 따라 다양한 설계 방식을 함께 탐색합니다.
 
-## 🔽 Dropdown (v1)
+## 🔽 Dropdown
 
-Compound Pattern을 기반으로 Dropdown 구조를 재설계합니다.
+- v1: Compound Pattern을 기반으로 Dropdown 구조를 재설계합니다.
+- v2: 접근성과 키보드 네비게이션을 추가하여 인터랙션 범위를 확장했습니다.
 
-### 설계 목표
+### 핵심 목표
 
-- UI(표현)와 동작(상태/이벤트) 분리
+- 표현(UI)와 동작(상태/이벤트) 분리
 - children 기반 조합으로 사용처 자유도 확보
-- 기본 인터랙션(토글/외부클릭/ESC/아이템 클릭 닫힘) 지원
-- 리스트 최대 높이 + 스크롤 옵션 제공
+- 기본 인터랙션 + 접근성 확장에 유리한 구조
 
 ### 제공 컴포넌트
 
@@ -50,22 +50,19 @@ const [sort, setSort] = useState("latest");
 
 ```
 
-### 인터랙션 흐름
+### 지원하는 동작
 
-```
-Trigger 클릭 → 열림
-Item 선택 → onSelect(value) 실행 → 닫힘
-외부 영역 클릭 / ESC → 닫힘
-disabled Item → 동작 없음
-```
-
-> Dropdown은 open 상태만 내부에서 관리하며  
-> 선택값은 사용처에서 제어하도록 설계했습니다.
+- Trigger 클릭: 열림/닫힘 토글
+- Item 클릭: `onSelect(value)` 실행 후 닫힘
+- 외부 클릭 / ESC: 닫힘
+- 키보드: ArrowUp/Down 이동, Enter/Space 선택
+- 포커스: 열림 시 첫 Item 포커스, 닫힘 시 Trigger 복귀
+- 접근성: `role="menu/menuitem"`, `aria-expanded`, `aria-controls`, `aria-disabled`
 
 ### 스타일링
 
 - Tailwind className 주입 방식
-- DropdownList는 maxHeightClass로 최대 높이 제어 가능
+- DropdownList는 maxHeightClass로 최대 높이/스크롤 제어 가능
 
 ## ⚙️ 기술 스택
 

@@ -3,9 +3,13 @@ import { useDropdownContext } from "../../../provider/DropdownProvider";
 
 type DropdownTriggerProps = {
   children: ReactNode;
+  className?: string;
 };
 
-export default function DropdownTrigger({ children }: DropdownTriggerProps) {
+export default function DropdownTrigger({
+  children,
+  className,
+}: DropdownTriggerProps) {
   const { toggle, isOpen, dropdownId, triggerRef } = useDropdownContext();
 
   return (
@@ -15,6 +19,7 @@ export default function DropdownTrigger({ children }: DropdownTriggerProps) {
       aria-expanded={isOpen}
       aria-haspopup="menu"
       aria-controls={dropdownId}
+      className={className}
     >
       {children}
     </button>
